@@ -104,4 +104,4 @@ ENV/
 *.png
 *.result
 *.pth
-*.xml
+.idea/
