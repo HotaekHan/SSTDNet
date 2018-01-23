@@ -20,7 +20,7 @@ Implement 'Single Shot Text Detector with Regional Attention, ICCV 2017 Spotligh
     v1 1<br>
     v2 2<br>
     ....<br>
-    * start from 1. not 0. 0 will be background.<br>
+    * start from 1. not from 0. 0 will be background.<br>
 
 2. some setting for dataset reader.<br>
    - see train.py. you can find some code for reading dataset<br>
@@ -29,5 +29,5 @@ Implement 'Single Shot Text Detector with Regional Attention, ICCV 2017 Spotligh
    - you should set the 'input_image_size' and 'original_img_size'. 'input_image_size' is size of (cropped) image for train. And 'original_img_size' is size of (original) image. I made this parameter to handle high resolution image. if you don't need crop function, -1 for num_crops.<br>
 <br>
 <br>
-3. Train your dataset!<br>
+3. Train with your dataset!<br>
         you should define some parameter like learning rate, which optimizer to use, size of batch etc.<br>
