@@ -23,17 +23,17 @@ class FocalLoss(nn.Module):
         self.using_gpu = torch.cuda.is_available()
 
     def focal_loss2d(self, x, y):
-        '''not works yet'''
         alpha = 0.25
         gamma = 2
 
-        y = y.view(y.size(0), -1)
+        y = y.view(-1)
+        x = x.permute(0,2,3,1).contiguous().view(-1, 2)
 
         if self.using_gpu is True:
             t = one_hot_embedding(y.data.cpu(), 2)
         else:
             t = one_hot_embedding(y.data, 2)
-        t = t[:,1:]  # exclude background
+        # t = t[:,1:]  # exclude background
 
         if self.using_gpu is True:
             t = Variable(t).cuda()
@@ -135,8 +135,8 @@ class FocalLoss(nn.Module):
         masked_cls_preds = cls_preds[mask].view(-1,self.num_classes)
         cls_loss = self.focal_loss(masked_cls_preds, cls_targets[pos_neg])
 
-        mask_loss = self.ce_loss(mask_preds, mask_targets)
-        # mask_loss = self.focal_loss2d(mask_preds, mask_targets)
+        # mask_loss = self.ce_loss(mask_preds, mask_targets)
+        mask_loss = self.focal_loss2d(mask_preds, mask_targets)
 
 
         print('loc_loss: %.3f | cls_loss: %.3f | mask_loss: %.3f' %
