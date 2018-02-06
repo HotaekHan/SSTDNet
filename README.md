@@ -2,8 +2,7 @@
 Implement 'Single Shot Text Detector with Regional Attention, ICCV 2017 Spotlight' using pytorch.
 ----------
 
-## This code is work for general object detection problem. not for (oriented) text detection problem.
-## I will probably update to handle oriented bounding box as soon as possible :)
+### This code is work for general object detection problem. not for (oriented) text detection problem. I will probably update to handle oriented bounding box as soon as possible :)
 
 
 [How to use]
