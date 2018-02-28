@@ -1,8 +1,3 @@
-'''
-Reference :
-   https://github.com/kuangliu/pytorch-retinanet/blob/master/loss.py
-'''
-
 from __future__ import print_function
 
 import torch
@@ -33,7 +28,6 @@ class FocalLoss(nn.Module):
             t = one_hot_embedding(y.data.cpu(), 2)
         else:
             t = one_hot_embedding(y.data, 2)
-        # t = t[:,1:]  # exclude background
 
         if self.using_gpu is True:
             t = Variable(t).cuda()
@@ -135,11 +129,9 @@ class FocalLoss(nn.Module):
         masked_cls_preds = cls_preds[mask].view(-1,self.num_classes)
         cls_loss = self.focal_loss(masked_cls_preds, cls_targets[pos_neg])
 
-        # mask_loss = self.ce_loss(mask_preds, mask_targets)
-        mask_loss = self.focal_loss2d(mask_preds, mask_targets)
+        mask_loss = self.ce_loss(mask_preds, mask_targets)
+        # mask_loss = self.focal_loss2d(mask_preds, mask_targets)
 
 
-        print('loc_loss: %.3f | cls_loss: %.3f | mask_loss: %.3f' %
-              (loc_loss.data[0]/num_pos, cls_loss.data[0]/num_pos, mask_loss.data[0]), end=' | ')
-        loss = ((loc_loss+cls_loss)/num_pos) + (mask_loss)
-        return loss, num_pos
+        # loss = ((loc_loss+cls_loss)/num_pos) + (mask_loss)
+        return loc_loss, cls_loss, mask_loss, num_pos
